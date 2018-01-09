@@ -34,7 +34,7 @@ def block(net, layers, growth, scope='block'):
     #这是过渡层或者压缩层，其中pooling layer主要就是做bn,conv(1x1),avg_pool(2x2)
 def transition_layer(net, num_outputs, kernel_size,scope='layer'):
     net = slim.batch_norm(net, scope = scope + '_bn')
-    net = slim.conv2d(net, num_outputs, kernel_size, scope=scope + '_conv')
+    net = slim.conv2d(net, num_outputs, kernel_size, activation_fn=tf.nn.relu, scope=scope + '_conv')
     net = slim.avg_pool2d(net, [2, 2], stride=2, padding='VALID', scope=scope + '_avg_pool')
     return net
 
